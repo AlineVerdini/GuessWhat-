@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp;
+package realpack;
 
 public class Messages {
 

@@ -1,4 +1,4 @@
-import org.academiadecodigo.bootcamp.GameMenu;
+import realpack.Server;
 
 public class Main {
 
@@ -6,7 +6,7 @@ public class Main {
 
         Server server = new Server();
         server.serverAccept();
-        GameMenu gameMenu = new GameMenu();
+
         //game.start();
     }
 }

@@ -1,4 +1,5 @@
-import org.academiadecodigo.bootcamp.Messages;
+package realpack;
+
 import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.bootcamp.scanners.menu.MenuInputScanner;
 
