@@ -1,4 +1,4 @@
-import realpack.Server;
+package realpack;
 
 public class Main {
 

@@ -1,6 +1,7 @@
 package realpack;
 
 import org.academiadecodigo.bootcamp.Prompt;
+import org.academiadecodigo.bootcamp.scanners.menu.MenuInputScanner;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -15,6 +16,7 @@ public class Server {
     private ServerSocket serverSocket;
     private int maxPlayers = 10;
     private LinkedList<Players> clientList = new LinkedList<>();
+    private Game game;
 
     private Prompt prompt = new Prompt(System.in, System.out);
 
@@ -22,33 +24,42 @@ public class Server {
     public Server() {
         try {
             serverSocket = new ServerSocket(PORT);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+
     public void serverAccept() {
 
         ExecutorService fixedPool = Executors.newFixedThreadPool(10);
-        int counterSocket = 0;
-        while (!serverSocket.isClosed()) {
-            try {
-                if (maxPlayers >= 1) {
-                    Socket socket = serverSocket.accept();
 
-                    Players worker = new Players(socket);
-                    System.out.println("Player Accept");
-                    clientList.add(worker);
-                    System.out.println("Player ADDED!");
-                    fixedPool.submit(worker);
-                    counterSocket++;
-                    maxPlayers--;
-                }
+        while (maxPlayers > 0) {
+            try {
+                // ACCEPT MAXIMUM AMOUNT OF PLAYERS
+                Socket socket = serverSocket.accept();
+                Players worker = new Players(socket);
+
+                System.out.println("Player Accept");
+                clientList.add(worker);
+                fixedPool.submit(worker);
+
+                maxPlayers--;
+
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            String[] menu = {
+            };
+            MenuInputScanner scanner = new MenuInputScanner(menu);
+            scanner.setMessage((Messages.ANSI_YELLOW + Messages.WEL + Messages.ANSI_RESET));
         }
-        fixedPool.shutdown();
+
+
+
+       // fixedPool.shutdown();
     }
 }
 
